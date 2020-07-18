@@ -1,0 +1,27 @@
+# 服务名称
+spring:
+  application:
+    name: spring-cloud-gateway
+  # 开启 Gateway 服务注册中心服务发现
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+        - CustomRewriteRouteFilter=true
+      routes:
+        - id: search
+          uri: http://10.10.200.200:0000
+          order: 0
+          predicates:
+            - Path=/search/**
+# Eureka Server 配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+# 配置Gateway日志等级，输出转发细节信息
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
